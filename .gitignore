@@ -13,5 +13,5 @@ yarn-error.log
 .env
 .phpunit.result.cache
 
-/public
+public
 /package-lock.json
