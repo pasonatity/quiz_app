@@ -1,7 +1,5 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: sancom
- * Date: 2018/09/12
- * Time: 21:56
- */
+@extends('layouts.app')
+
+@section('contents')
+    <div>hello world</div>
+@endsection
