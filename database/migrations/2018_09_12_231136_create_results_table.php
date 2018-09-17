@@ -17,7 +17,7 @@ class CreateResultsTable extends Migration
             $table->increments('id')->comment('ID');
             $table->unsignedInteger('quiz_id')->comment('クイズID');
             $table->integer('correct_number')->comment('正解数');
-            $table->string('comment')->comment('コメント');
+            $table->string('comment')->nullable()->comment('コメント');
             $table->timestamps();
 
             $table->foreign('quiz_id')->references('id')->on('quizzes');

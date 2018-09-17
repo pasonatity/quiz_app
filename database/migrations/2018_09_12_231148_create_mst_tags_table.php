@@ -15,7 +15,7 @@ class CreateMstTagsTable extends Migration
     {
         Schema::create('mst_tags', function (Blueprint $table) {
             $table->increments('id')->comment('ID');
-            $table->string('nag_name')->comment('タグ名');
+            $table->string('tag_name')->comment('タグ名');
             $table->timestamps();
         });
 

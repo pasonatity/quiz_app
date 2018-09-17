@@ -18,8 +18,8 @@ class CreateQuizzesTable extends Migration
             $table->increments('id')->comment('ID');
             $table->unsignedInteger('user_id')->nullable()->comment('ユーザーID');
             $table->string('quiz_title')->comment('クイズタイトル');
-            $table->string('quiz_sub_title')->comment('クイズサブタイトル');
-            $table->unsignedInteger('participants_number')->comment('参加者数');
+            $table->string('quiz_sub_title')->nullable()->comment('クイズサブタイトル');
+            $table->unsignedInteger('participants_number')->default(0)->comment('参加者数');
             $table->boolean('published')->comment('公開状態');
             $table->timestamps();
 

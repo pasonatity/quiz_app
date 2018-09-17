@@ -16,6 +16,7 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id')->comment('ID');
             $table->unsignedInteger('question_id')->comment('質問ID');
+            $table->string('item_content')->comment('項目内容');
             $table->boolean('correct')->comment('正誤');
             $table->timestamps();
 
