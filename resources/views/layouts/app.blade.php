@@ -17,7 +17,7 @@
     <body>
         <div id="app">
            @include('layouts.header')
-            <div class="container">
+            <div class="container my-4">
                 @yield('contents')
             </div>
         </div>

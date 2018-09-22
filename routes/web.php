@@ -18,6 +18,6 @@
 //    return view('welcome');
 //});
 
-Route::get('/', function () {
-    return view('public_views.index');
-});
+Route::get('/', 'PublicViewController@index')->name('public_view');
+Route::get('/search', 'PublicViewController@search')->name('public_view_search');
+Route::get('/tag/{tag_id}', 'PublicViewController@tag')->name('public_view_tag');
