@@ -1,0 +1,15 @@
+@import "../app.scss";
+@media (min-width: 992px) {
+  .container-panel {
+    max-width: 720px;
+  }
+}
+
+.container-panel {
+  @extend .container;
+  background-color: #fff;
+}
+
+[v-cloak] {
+  display: none;
+}

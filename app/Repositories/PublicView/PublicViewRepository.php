@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Models\Tag;
 use App\Models\MstTag;
+use App\Http\Resources\Quiz as QuizResource;
 
 class PublicViewRepository implements PublicViewRepositoryInterface
 {
@@ -52,5 +53,30 @@ class PublicViewRepository implements PublicViewRepositoryInterface
             $query->where('id', $id);
         })->get();
         return $quizzes;
+    }
+
+    /*
+     * API:クイズ内容
+     *
+     */
+    public function getQuizContent($quiz_id)
+    {
+        \Debugbar::log('getQuiz');
+        $quiz = Quiz::where('id', $quiz_id)->first();
+        if($quiz) {
+            $this->increaseParticipantsNumber($quiz);
+        }
+        return new QuizResource($quiz);
+    }
+
+    /*
+     * 参加人数+1
+     *
+     */
+    private function increaseParticipantsNumber($quiz)
+    {
+        \Debugbar::log('参加人数＋１');
+        $quiz->participants_number += 1;
+        $quiz->save();
     }
 }

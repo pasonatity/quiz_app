@@ -16,7 +16,7 @@
             <div>
             @foreach($quizzes as $quiz)
                 <div>
-                <a href="#">{{ $quiz->quiz_title }}</a><span class="badge badge-pill badge-secondary ml-2">参加者{{ $quiz->participants_number }}人</span>
+                <a href="{{ route('public_view_item', $quiz->id) }}">{{ $quiz->quiz_title }}</a><span class="badge badge-pill badge-secondary ml-2">参加者{{ $quiz->participants_number }}人</span>
                 <div>
                     <span>{{ $quiz->quiz_sub_title }}</span>
                 </div>

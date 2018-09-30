@@ -29,4 +29,10 @@ interface PublicViewRepositoryInterface
      *
      */
     public function tag($id);
+
+    /*
+     * API:クイズ内容
+     *
+     */
+    public function getQuizContent($quiz_id);
 }
