@@ -6,7 +6,7 @@
  */
 
 require('./bootstrap');
-// require('./bootstrap-honoka');
+// require('bootstrap-honoka');
 window.Vue = require('vue');
 
 /**

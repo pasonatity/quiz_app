@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
 @section('contents')
-    <div id="quiz" class="container-panel">
-        <div v-if="panel.data" v-cloak>
-            <div>@{{ panel.data.quiz_title }}</div>
-            <div>@{{ panel.data.quiz_sub_title }}</div>
-            <div v-if="show === 'start'" v-on:click="showQuestion" class="btn btn-primary">スタート</div>
+    <div id="quiz">
+        <div v-if="!panel.data" class="text-center m">読み込み中...</div>
+        <div v-if="panel.data" v-cloak class="container-panel text-center">
+            <h3 class="mt-2">@{{ panel.data.quiz_title }}</h3>
+            <h5>@{{ panel.data.quiz_sub_title }}</h5>
+            <div v-if="show === 'start'" v-on:click="showQuestion" class="btn btn-primary my-2">スタート</div>
             <question-panel v-if="show === 'questionPanel'" v-bind:content="panel" v-on:end-question="showResult"></question-panel>
             <div v-if="show === 'resultPanel'">
                 <div>結果発表</div>
-                <div>@{{ correctNum }} / @{{ panel.data.questions.length }} 問正解</div>
+                <div>@{{ correctNum }}  / @{{ panel.data.questions.length }} 問正解</div>
                 <div>@{{ resultComment }}</div>
                 <a href="{{ route('public_view_item', $quiz_id) }}" class="btn btn-primary">もう一度</a>
             </div>

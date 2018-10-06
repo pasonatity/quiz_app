@@ -8,7 +8,7 @@ template: `
         <div> {{ questionCount + 1 }}/ {{ questionNum }}問</div>
         {{ content.data.questions[questionCount].question_constent }}
         <div v-for="item in content.data.questions[questionCount].items">
-            <button v-on:click="answer(item.correct)" v-bind:disabled="disabled" v-bind:key="item.id" class="btn btn-primary my-2">
+            <button v-on:click="answer(item.correct)" v-bind:disabled="disabled" v-bind:key="item.id" class="btn btn-primary my-2 select-btn">
                 {{ item.item_content }}
             </button>
         </div>

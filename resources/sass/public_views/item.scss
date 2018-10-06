@@ -7,9 +7,16 @@
 
 .container-panel {
   @extend .container;
+  min-height: 400px;
   background-color: #fff;
 }
 
 [v-cloak] {
   display: none;
+}
+
+@media (min-width: 576px) {
+  .select-btn{
+    width: 400px;
+  }
 }
