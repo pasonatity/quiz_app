@@ -20,4 +20,26 @@ class Quiz extends Model
     {
         return$this->hasMany('App\Models\Tag');
     }
+
+    public function scopeWhereKeyword($query, $keyword)
+    {
+        if(empty($keyword)) {
+            return $query;
+        } else {
+            return $query
+                ->where(function ($q) use ($keyword) {
+                    $q
+                        ->where('quiz_title', 'like', '%'. $keyword. '%')
+                        ->orWhere('quiz_sub_title', 'like', '%'. $keyword. '%')
+                    ;
+                });
+        }
+    }
+
+    public function scopeWhereTag($query, $tag_id)
+    {
+        return $query->whereHas('tag', function ($q) use($tag_id) {
+            $q->where('id', $tag_id);
+        });
+    }
 }

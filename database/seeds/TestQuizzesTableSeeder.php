@@ -11,16 +11,21 @@ class TestQuizzesTableSeeder extends Seeder
      */
     public function run()
     {
-        $quizzes = [
-            ['testTitle1', 'testSubTitle1', true],
-            ['testTitle2', 'testSubTitle2', false]
-        ];
-        foreach ($quizzes as $quiz) {
-            DB::table('quizzes')->insert([
-                'quiz_title' => $quiz[0],
-                'quiz_sub_title' => $quiz[1],
-                'published' => $quiz[2]
-            ]);
+        // 公開データ
+        $this->insert('testTitle1', 'testSubTitle1', true);
+
+        // 非公開データ
+        for ($i = 2; $i <= 30; $i++) {
+            $this->insert('testTitle'. $i, 'testSubTitle'. $i, false);
         }
+    }
+
+    private function insert($title, $sub_title, $published)
+    {
+        DB::table('quizzes')->insert([
+            'quiz_title' => $title,
+            'quiz_sub_title' => $sub_title,
+            'published' => $published
+        ]);
     }
 }

@@ -4,24 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Repositories\PublicView\PublicViewRepositoryInterface;
 use Illuminate\Http\Request;
-
+use App\Models\Quiz;
+use App\Models\Tag;
+use App\Models\MstTag;
+use App\Http\Resources\Quiz as QuizResource;
 
 class PublicViewController extends Controller
 {
-    protected $public_view_repo;
+//    protected $public_view_repo;
+//
+//    public function __construct(
+//        PublicViewRepositoryInterface $public_view_repo
+//    )
+//    {
+//        $this->public_view_repo = $public_view_repo;
+//    }
 
-    public function __construct(
-        PublicViewRepositoryInterface $public_view_repo
-    )
-    {
-        $this->public_view_repo = $public_view_repo;
-    }
-
+    CONST PAGE_COUNT = 10;
     // トップページ
     public function index()
     {
-        $quizzes = $this->public_view_repo->getQuizList();
-        $mst_tags = $this->public_view_repo->getMstTagList();
+        $quizzes = Quiz::orderBy('participants_number','desc')->paginate(self::PAGE_COUNT);
+        $mst_tags = MstTag::all();
         return view('public_views.index', compact('quizzes','mst_tags'));
 
     }
@@ -29,16 +33,17 @@ class PublicViewController extends Controller
     // 検索
     public function search(Request $request)
     {
-        $quizzes = $this->public_view_repo->searchQuiz($request);
-        $mst_tags = $this->public_view_repo->getMstTagList();
+        $keyword = $request->keyword;
+        $quizzes = Quiz::whereKeyword($keyword)->paginate(self::PAGE_COUNT);
+        $mst_tags = MstTag::all();
         return view('public_views.index', compact('quizzes', 'mst_tags'));
     }
 
     // タグ検索
     public function tag($tag_id)
     {
-        $quizzes = $this->public_view_repo->tag($tag_id);
-        $mst_tags = $this->public_view_repo->getMstTagList();
+        $quizzes = Quiz::whereTag($tag_id)->paginate(self::PAGE_COUNT);
+        $mst_tags = MstTag::all();
         return view('public_views.index', compact('quizzes', 'mst_tags'));
     }
 
@@ -51,9 +56,20 @@ class PublicViewController extends Controller
     // クイズ内容
     public function content($quiz_id)
     {
-        $quiz_content = $this->public_view_repo->getQuizContent($quiz_id);
-        return $quiz_content;
+        $quiz_content = Quiz::where('id', $quiz_id)->first();
+        if($quiz_content) {
+            $this->increaseParticipantsNumber($quiz_content);
+        }
+        return new QuizResource($quiz_content);
 
+    }
+
+    // 参加人数+1
+    private function increaseParticipantsNumber($quiz)
+    {
+        \Debugbar::log('参加人数＋１');
+        $quiz->participants_number += 1;
+        $quiz->save();
     }
 
 }
