@@ -26,10 +26,23 @@
                     </div>
                 @endforeach
             </div>
+            <div class="justify-content-center">
+                <nav aria-label="pager">
+                    <ul class="pagination justify-content-between">
+                        <li>
+                            <a class="btn page-link badge-pill @if($quizzes->onFirstPage()) text-muted disabled @endif" href="{{ $quizzes->previousPageUrl() }}" @if($quizzes->onFirstPage()) aria-disabled="true" @endif><span aria-hidden="true">&larr;</span> 前へ</a>
+                        </li>
+                        <li>
+                            <div class="">
+                                <span aria-hidden="true">&ndash;</span>{{ $quizzes->currentPage() }}<span aria-hidden="true">&ndash;</span>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="btn page-link badge-pill @if(!$quizzes->hasMorePages()) text-muted disabled @endif" href="{{ $quizzes->nextPageUrl() }}" @if(!$quizzes->hasMorePages()) area-disabled="true" @endif>次へ <span aria-hidden="true">&rarr;</span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 @endsection
-
-@push('css')
-    <link href="{{ mix('css/public_views/index.css') }}" rel="stylesheet">
-@endpush

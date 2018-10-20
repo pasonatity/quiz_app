@@ -23,4 +23,4 @@ Route::get('/search', 'PublicViewController@search')->name('public_view_search')
 Route::get('/tag/{tag_id}', 'PublicViewController@tag')->name('public_view_tag');
 Route::get('/item/{quiz_id}', 'PublicViewController@item')->name('public_view_item');
 
-Route::get('/item/{quiz_id}/content', 'publicViewController@content');
+Route::get('/item/{quiz_id}/content', 'PublicViewController@content');

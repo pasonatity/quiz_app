@@ -23,7 +23,7 @@
             </div>
         </div>
         <!-- Script -->
-        {{--<script src="{{ mix('js/app.js') }}"></script>--}}
+        <script src="{{ mix('js/app.js') }}"></script>
         @stack('script')
     </body>
 </html>
