@@ -21,6 +21,7 @@ class CreateTagsTable extends Migration
 
             $table->foreign('quiz_id')->references('id')->on('quizzes');
             $table->foreign('mst_tag_id')->references('id')->on('mst_tags');
+            $table->unique(['quiz_id', 'mst_tag_id']);
         });
 
         DB::statement("ALTER TABLE tags COMMENT 'タグデータ'");
