@@ -17,11 +17,12 @@
     </head>
     <body>
         <div id="app">
-           @include('layouts.header')
+            @include('layouts.header')
             <div class="container my-4">
                 @yield('contents')
             </div>
         </div>
+
         <!-- Script -->
         <script src="{{ mix('js/app.js') }}"></script>
         @stack('script')
