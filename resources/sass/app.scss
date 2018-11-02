@@ -23,7 +23,7 @@ html {
 
 .main {
   @extend .container;
-  min-height: 400px;
+  //min-height: 400px;
   background-color: #fff;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -43,6 +43,11 @@ html {
   }
 }
 
-.sub_title {
-  font-size: 0.8%;
+.required-label:after {
+  content: '(必須)';
+  color: $red;
+}
+
+.width-200 {
+  width: 200px;
 }
