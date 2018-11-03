@@ -7,6 +7,11 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// Font Awesome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+
 html {
   font-size: 20px;
 }
@@ -50,4 +55,10 @@ html {
 
 .width-200 {
   width: 200px;
+}
+
+.btn-none {
+  background-color: rgba(0,0,0,0);
+  border: none;
+  cursor: pointer;
 }

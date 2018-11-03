@@ -139,17 +139,18 @@ let inputQuestion = {
 <div id="accordion">
     <div class="card my-2">
         <div class="card-header" v-bind:id="'heading' + index">
-            <h5 class="mb-0">
+            <div class="mb-0">
                 <div class="form-group">
-                    <button type="button" class="btn btn-link required-label" data-toggle="collapse" v-bind:data-target="'#collapse' + index" aria-expanded="true" v-bind:aria-controls="'collapse' + index">
-                        問題内容{{ index }}
+                    <button type="button" v-on:click="toggle" class="btn-none" data-toggle="collapse" v-bind:data-target="'#collapse' + index" aria-expanded="true" v-bind:aria-controls="'collapse' + index">
+                        <i class="fas fa-bars"></i>
                     </button>
+                    <label class="required-label">問題内容{{ index }}</label>
                     <button type="button" class="close ml-auto" v-on:click="remove">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <input type="text" class="form-control" v-bind:name="'question'+ index" v-model="question.question" placeholder="問題内容を入力してください" />
                 </div>
-            </h5>
+            </div>
         </div>
         <div v-bind:id="'collapse' + index" class="collapse show" v-bind:aria-labelledby="'heading' + index" data-parent="#accordion">
             <div class="card-body">
@@ -169,7 +170,7 @@ let inputQuestion = {
     props: ['question','questionIndex'],
     computed: {
         index() {
-            return this.questionIndex+1
+            return this.questionIndex + 1
         }
     },
     methods: {
@@ -209,3 +210,4 @@ const inputQuiz = new Vue({
         'input-question': inputQuestion
     }
 });
+
