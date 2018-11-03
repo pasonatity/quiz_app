@@ -19,7 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->string('question_content')->comment('質問内容');
             $table->timestamps();
 
-            $table->foreign('quiz_id')->references('id')->on('quizzes');
+            $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade')->onUpdate('cascade');
         });
 
         DB::statement("ALTER TABLE questions COMMENT '質問データ'");

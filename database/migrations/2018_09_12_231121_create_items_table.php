@@ -20,7 +20,7 @@ class CreateItemsTable extends Migration
             $table->boolean('correct')->comment('正誤');
             $table->timestamps();
 
-            $table->foreign('question_id')->references('id')->on('questions');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade')->onUpdate('cascade');
         });
 
         DB::statement("ALTER TABLE items COMMENT '項目データ'");

@@ -20,7 +20,7 @@ class CreateResultsTable extends Migration
             $table->string('comment')->nullable()->comment('コメント');
             $table->timestamps();
 
-            $table->foreign('quiz_id')->references('id')->on('quizzes');
+            $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade')->onUpdate('cascade');
         });
 
         DB::statement("ALTER TABLE results COMMENT '結果データ'");

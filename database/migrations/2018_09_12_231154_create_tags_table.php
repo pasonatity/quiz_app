@@ -19,8 +19,8 @@ class CreateTagsTable extends Migration
             $table->unsignedInteger('mst_tag_id')->comment('タグID');
             $table->timestamps();
 
-            $table->foreign('quiz_id')->references('id')->on('quizzes');
-            $table->foreign('mst_tag_id')->references('id')->on('mst_tags');
+            $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('mst_tag_id')->references('id')->on('mst_tags')->onDelete('restrict')->onUpdate('restrict');
             $table->unique(['quiz_id', 'mst_tag_id']);
         });
 
