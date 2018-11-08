@@ -25,8 +25,8 @@ Route::get('/item/{quiz_id}', 'PublicViewController@item')->name('public_view_it
 
 Route::get('/item/{quiz_id}/content', 'PublicViewController@content');
 
-Route::get('/auth', function () {
-    return view('auth');
-})->name('auth');
+//Route::get('/auth', function () {
+//    return view('auth');
+//})->name('auth');
 
 Route::get('/quiz/create', 'QuizController@create')->name('quiz_create');

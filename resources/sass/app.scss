@@ -34,14 +34,6 @@ html {
   padding-bottom: 15px;
 }
 
-.show-answer {
-  height: 20px;
-}
-
-[v-cloak] {
-  display: none;
-}
-
 @media (min-width: 576px) {
   .select-btn{
     width: 400px;
@@ -53,12 +45,12 @@ html {
   color: $red;
 }
 
+.required-text:after {
+  content: '必須項目です';
+  color: $red;
+}
+
 .width-200 {
   width: 200px;
 }
 
-.btn-none {
-  background-color: rgba(0,0,0,0);
-  border: none;
-  cursor: pointer;
-}
