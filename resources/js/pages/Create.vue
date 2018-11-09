@@ -4,11 +4,11 @@
             <form>
                 <div class="form-group">
                     <label for="quizTitle" class="required-label">クイズタイトル</label>
-                    <input type="text" class="form-control" placeholder="クイズタイトルを入力してください">
+                    <input type="text" class="form-control" name="quizTitle" placeholder="クイズタイトルを入力してください">
                 </div>
                 <div class="form-group pb-4">
                     <label for="quizSubTitle">クイズサブタイトル</label>
-                    <input type="text" class="form-control" placeholder="クイズサブタイトルを入力してください">
+                    <input type="text" class="form-control" name="quizSubTitle" placeholder="クイズサブタイトルを入力してください">
                 </div>
                 <InputQuestion :question="question"
                                :index="index"

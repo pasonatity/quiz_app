@@ -14,7 +14,7 @@
                         <input type="text"
                                class="form-control"
                                :class="{'is-invalid': required(question.content)}"
-                               :name="'question'+ index"
+                               :name="'question['+ index  + ']content'"
                                v-model="question.content"
                                placeholder="問題内容を入力してください"
                         />
@@ -23,14 +23,14 @@
                     </div>
                 </div>
             </div>
-            <div v-show="openToggle">
+            <div v-show="question.openToggle">
                 <div class="card-body">
                     <div class="form-group">
                         <label class="required-label">選択肢:正解</label>
                         <input type="text"
                                class="form-control"
                                :class="{'is-invalid': required(question.correct)}"
-                               :name="'question'+ index + 'correct'"
+                               :name="'question['+ index + ']correct'"
                                v-model="question.correct"
                                placeholder="正解の選択肢を入力してください"
                         />
@@ -41,7 +41,7 @@
                         <label class="required-label">選択肢:不正解(最大5個)</label>
                         <textarea class="form-control"
                                   :class="{'is-invalid': required(question.incorrect)}"
-                                  :name="'question'+ index + 'incorrect'"
+                                  :name="'question['+ index + ']incorrect'"
                                   v-model="question.incorrect"
                                   placeholder="不正解の選択肢をカンマ区切りで入力してください"
                                   rows="3"
