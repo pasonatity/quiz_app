@@ -1,14 +1,14 @@
 <template>
     <div id="inputQuiz" class="mx-auto">
         <div class="main">
-            <form>
+            <form @submit.prevent="onSubmit" method="post">
                 <div class="form-group">
                     <label for="quizTitle" class="required-label">クイズタイトル</label>
-                    <input type="text" class="form-control" name="quizTitle" placeholder="クイズタイトルを入力してください">
+                    <input type="text" class="form-control" v-model="quizTitle" placeholder="クイズタイトルを入力してください">
                 </div>
                 <div class="form-group pb-4">
                     <label for="quizSubTitle">クイズサブタイトル</label>
-                    <input type="text" class="form-control" name="quizSubTitle" placeholder="クイズサブタイトルを入力してください">
+                    <input type="text" class="form-control" v-model="quizSubTitle" placeholder="クイズサブタイトルを入力してください">
                 </div>
                 <InputQuestion :question="question"
                                :index="index"
@@ -32,8 +32,8 @@
                         </label>
                     </div>
                     <div class="pt-4">
-                        <button type="button" @click="pushSubmit" name="save" class="col-md-4 btn btn-primary btn-block mx-auto width-200">保存</button>
-                        <button type="button" @click="pushSubmit" name="saveResult" class="col-md-4 btn btn-outline-primary btn-block mx-auto width-200">結果コメントを作成</button>
+                        <button type="submit" name="save" class="col-md-4 btn btn-primary btn-block mx-auto width-200">保存</button>
+                        <!--<button type="button" @click="onSubmit" name="saveResult" class="col-md-4 btn btn-outline-primary btn-block mx-auto width-200">結果コメントを作成</button>-->
                     </div>
                 </div>
             </form>
@@ -49,10 +49,13 @@
         },
         data() {
             return{
+                quizTitle: '',
+                quizSubTitle: '',
                 questions: [
                     {content: '', correct: '', incorrect: '', openToggle: true}
                 ],
-                submit: false
+                submit: false,
+                error:[]
             }
         },
         methods: {
@@ -72,8 +75,29 @@
                     }
                 }
             },
-            pushSubmit() {
+            onSubmit() {
                 this.submit = true;
+                let quiz = {quizTitle: this.quizTitle, quizSubTitle: this.quizSubTitle,};
+                let content = [];
+                let correct = [];
+                let incorrect = [];
+                for (let i = 0; i < this.questions.length; i++) {
+                    content.push(this.questions[i].content);
+                    correct.push(this.questions[i].correct);
+                    incorrect.push(this.questions[i].incorrect);
+                }
+                quiz.questionContent = content;
+                quiz.questionCorrect = correct;
+                quiz.questionIncorrect = incorrect;
+
+                axios.post('store',quiz)
+                    .then( res => {
+                        console.log(res.data);
+                    })
+                    .catch( e => {
+                        this.error = e;
+                        console.log(e.response.data);
+                    });
             },
             toggle(index) {
                 this.questions[index].openToggle = !this.questions[index].openToggle;

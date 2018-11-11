@@ -30,3 +30,4 @@ Route::get('/item/{quiz_id}/content', 'PublicViewController@content');
 //})->name('auth');
 
 Route::get('/quiz/create', 'QuizController@create')->name('quiz_create');
+Route::post('/quiz/store', 'QuizController@store')->name('quiz_store');
