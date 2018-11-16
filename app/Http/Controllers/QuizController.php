@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\QuizRequest;
+use App\Models\Quiz;
 
 class QuizController extends Controller
 {
@@ -37,6 +38,21 @@ class QuizController extends Controller
     {
 //        return view('public_views.index');
         \Debugbar::log($request->all());
+//        DB::beginTransaction();
+//        try {
+//            $quiz = new Quiz();
+//            $quiz->quiz_title = $request->quizTitle;
+//            $quiz->quiz_sub_title = $request->quizSubTitle;
+//
+//            // TODO:questions,itemsテーブルのinsert
+//
+//            DB::commit();
+//            return true;
+//
+//        }catch(\PDOException $e){
+//            DB::rollback();
+//            return false;
+//        }
         return;
     }
 

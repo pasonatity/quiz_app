@@ -16,6 +16,7 @@ window.axios = require('axios');
 // ページ内で利用するパーツコンポーネント
 Vue.component('quiz-page', require('./components/public_veiws/QuestionPanel'));
 Vue.component('create-page', require('./components/quizzes/InputQuestion'));
+Vue.component('create-page', require('./components/quizzes/InputIncorrect'));
 
 // ページ単位のコンポーネント
 Vue.component('quiz-page', require('./pages/Quiz'));

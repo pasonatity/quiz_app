@@ -25,10 +25,9 @@ class QuizRequest extends FormRequest
     {
         return [
             'quizTitle' => 'required',
-            'quizSubTitle' => 'required',
-            'questionContent.*' => 'required',
-            'questionCorrect.*' => 'required',
-            'questionIncorrect.*' => 'required'
+            'questions.*.content' => 'required',
+            'questions.*.correct' => 'required',
+            'questions.*.incorrect.*.item' => 'required'
         ];
     }
 }

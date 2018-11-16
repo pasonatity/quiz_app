@@ -4,7 +4,14 @@
             <form @submit.prevent="onSubmit" method="post">
                 <div class="form-group">
                     <label for="quizTitle" class="required-label">クイズタイトル</label>
-                    <input type="text" class="form-control" v-model="quizTitle" placeholder="クイズタイトルを入力してください">
+                    <input type="text"
+                           class="form-control"
+                           :class="{'is-invalid': errors.has('quizTitle')}"
+                           v-model="quizTitle"
+                           placeholder="クイズタイトルを入力してください">
+                    <div v-if="errors.has('quizTitle')" class="invalid-feedback">
+                        {{ errors.get('quizTitle') }}
+                    </div>
                 </div>
                 <div class="form-group pb-4">
                     <label for="quizSubTitle">クイズサブタイトル</label>
@@ -12,10 +19,13 @@
                 </div>
                 <InputQuestion :question="question"
                                :index="index"
-                               :submit="submit"
-                               :key="index+1"
-                               @remove="removeQuestion"
-                               @toggle="toggle"
+                               :maxIncorrect="maxIncorrect"
+                               :errors="errors"
+                               :key="index"
+                               @removeQuestion="removeQuestion"
+                               @onToggle="onToggle"
+                               @addItem="addItem"
+                               @removeItem="removeItem"
                                v-for="(question, index) in questions"
                 ></InputQuestion>
                 <button type="button" class="btn btn-primary" @click="addQuestion">問題追加</button>
@@ -42,28 +52,32 @@
 </template>
 
 <script>
+    import {Errors} from "../errors";
     import InputQuestion from '../components/quizzes/InputQuestion.vue'
+    import InputIncorrect from '../components/quizzes/InputIncorrect.vue'
     export default {
         components: {
-            InputQuestion
+            InputQuestion,
+            InputIncorrect
         },
         data() {
             return{
                 quizTitle: '',
                 quizSubTitle: '',
                 questions: [
-                    {content: '', correct: '', incorrect: '', openToggle: true}
+                    {content: '', correct: '', incorrect: [{item: ''}], toggle: true}
                 ],
-                submit: false,
-                error:[]
+                errors: new Errors(),
+                maxQuestion: 20,
+                maxIncorrect: 4
             }
         },
         methods: {
             addQuestion() {
-                if(this.questions.length >= 20) {
-                    alert('問題は最大20個までです')
+                if(this.questions.length >= this.maxQuestion) {
+                    alert('問題は最大' + this.maxQuestion + '個までです')
                 } else {
-                    this.questions.push({content: '', correct: '', incorrect: '', openToggle: true});
+                    this.questions.push({content: '', correct: '', incorrect: [{item: ''}], toggle: true});
                 }
             },
             removeQuestion(index) {
@@ -72,35 +86,40 @@
                 } else {
                     if(confirm('削除します。よろしいですか？')) {
                         this.questions.splice(index, 1);
+                        // this.errors.remove('questions.' + index + '.correct');
                     }
                 }
             },
-            onSubmit() {
-                this.submit = true;
-                let quiz = {quizTitle: this.quizTitle, quizSubTitle: this.quizSubTitle,};
-                let content = [];
-                let correct = [];
-                let incorrect = [];
-                for (let i = 0; i < this.questions.length; i++) {
-                    content.push(this.questions[i].content);
-                    correct.push(this.questions[i].correct);
-                    incorrect.push(this.questions[i].incorrect);
+            addItem(index) {
+                if(this.questions[index].incorrect.length >= this.maxIncorrect) {
+                    alert('不正解は最大' + this.maxIncorrect + '個までです。');
+                } else {
+                    this.questions[index].incorrect.push({item:''});
                 }
-                quiz.questionContent = content;
-                quiz.questionCorrect = correct;
-                quiz.questionIncorrect = incorrect;
+            },
+            removeItem(index) {
+                if(this.questions[index.questionIndex].incorrect.length <= 1) {
+                    alert('不正解は1個以上必要です。');
+                } else {
+                    this.questions[index.questionIndex].incorrect.splice(index.incorrectIndex, 1);
+                }
+            },
+            onSubmit() {
+                let quiz = {quizTitle: this.quizTitle, quizSubTitle: this.quizSubTitle,};
+                quiz.questions = this.questions;
 
                 axios.post('store',quiz)
                     .then( res => {
-                        console.log(res.data);
+                        console.log('success');
+                        // location.href = '/';
                     })
                     .catch( e => {
-                        this.error = e;
-                        console.log(e.response.data);
+                        console.log(e.response.data.errors);
+                        this.errors.record(e.response.data.errors);
                     });
             },
-            toggle(index) {
-                this.questions[index].openToggle = !this.questions[index].openToggle;
+            onToggle(index) {
+                this.questions[index].toggle = !this.questions[index].toggle;
             }
         }
     }
