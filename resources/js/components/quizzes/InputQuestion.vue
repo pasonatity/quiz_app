@@ -31,7 +31,6 @@
                         <input type="text"
                                class="form-control"
                                :class="{'is-invalid': errors.has('questions.' + index + '.correct')}"
-                               :name="'question['+ index + ']correct'"
                                v-model="question.correct"
                                placeholder="正解を入力してください"
                         />

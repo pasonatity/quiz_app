@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
          $this->call([
+             TestMstPublicTypesTableSeeder::class,
              TestMstTagsTableSeeder::class,
              TestQuizzesTableSeeder::class,
              TestQuestionsTableSeeder::class,

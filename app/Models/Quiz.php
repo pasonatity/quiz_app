@@ -18,7 +18,12 @@ class Quiz extends Model
 
     public function tag()
     {
-        return$this->hasMany('App\Models\Tag');
+        return $this->hasMany('App\Models\Tag');
+    }
+
+    public function mst_public_type()
+    {
+        return $this->belongsTo('App\Models\MstPublicType');
     }
 
     public function scopeWhereKeyword($query, $keyword)

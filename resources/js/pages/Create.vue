@@ -8,14 +8,19 @@
                            class="form-control"
                            :class="{'is-invalid': errors.has('quizTitle')}"
                            v-model="quizTitle"
-                           placeholder="クイズタイトルを入力してください">
+                           placeholder="クイズタイトルを入力してください"
+                    />
                     <div v-if="errors.has('quizTitle')" class="invalid-feedback">
                         {{ errors.get('quizTitle') }}
                     </div>
                 </div>
                 <div class="form-group pb-4">
                     <label for="quizSubTitle">クイズサブタイトル</label>
-                    <input type="text" class="form-control" v-model="quizSubTitle" placeholder="クイズサブタイトルを入力してください">
+                    <input type="text"
+                           class="form-control"
+                           v-model="quizSubTitle"
+                           placeholder="クイズサブタイトルを入力してください"
+                    />
                 </div>
                 <InputQuestion :question="question"
                                :index="index"
@@ -30,21 +35,39 @@
                 ></InputQuestion>
                 <button type="button" class="btn btn-primary" @click="addQuestion">問題追加</button>
                 <div class="my-4">
-                    <div>ステータス</div>
+                    <div>公開状態</div>
                     <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="published" value="1" checked="checked"> 公開する
+                            <input class="form-check-input" type="radio" name="public_type" value="1" checked="checked"> 一般公開
                         </label>
                     </div>
                     <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="published" value="0"> 公開しない
+                            <input class="form-check-input" type="radio" name="public_type" value="2"> 限定公開
                         </label>
                     </div>
-                    <div class="pt-4">
-                        <button type="submit" name="save" class="col-md-4 btn btn-primary btn-block mx-auto width-200">保存</button>
-                        <!--<button type="button" @click="onSubmit" name="saveResult" class="col-md-4 btn btn-outline-primary btn-block mx-auto width-200">結果コメントを作成</button>-->
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="public_type" value="3"> 非公開
+                        </label>
                     </div>
+                </div>
+                <div class="my-4">
+                    <div>問題順</div>
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="sort" value="1" checked="checked"> 順番通り
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="sort" value="0"> シャッフル
+                        </label>
+                    </div>
+                </div>
+                <div class="my-4" >
+                    <button type="submit" name="save" class="col-md-4 btn btn-primary btn-block mx-auto width-200">保存</button>
+                    <!--<button type="button" @click="onSubmit" name="saveResult" class="col-md-4 btn btn-outline-primary btn-block mx-auto width-200">結果コメントを作成</button>-->
                 </div>
             </form>
         </div>
