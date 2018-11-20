@@ -3,7 +3,8 @@
 @section('contents')
     <div class="mx-auto">
         <div class="d-flex justify-content-center">
-            <form class="form-inline mx-auto" action="{{ route('public_view_search') }}" method="get">
+            <form class="form-inline mx-auto" action="{{ route('public_view') }}" method="post">
+                @csrf
                 <div class="form-group mx-sm-2">
                     <input type="text" name="keyword" class="form-control">
                 </div>

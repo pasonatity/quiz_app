@@ -19,29 +19,18 @@ class TopPageController extends Controller
 //    }
 
     CONST PAGE_COUNT = 10;
-    // トップページ
-    public function index()
-    {
-        $quizzes = Quiz::orderBy('participants_number','desc')->paginate(self::PAGE_COUNT);
-        $mst_tags = MstTag::all();
-        return view('public_views.index', compact('quizzes','mst_tags'));
-
-    }
 
     // 検索
-    public function search(Request $request)
+    public function index(Request $request, $tag_id = null)
     {
         $keyword = $request->keyword;
-        $quizzes = Quiz::whereKeyword($keyword)->paginate(self::PAGE_COUNT);
+        $quizzes = Quiz::whereKeyword($keyword)
+            ->whereTag($tag_id)
+            ->orderBy('participants_number','desc')
+            ->paginate(self::PAGE_COUNT)
+        ;
         $mst_tags = MstTag::all();
         return view('public_views.index', compact('quizzes', 'mst_tags'));
     }
 
-    // タグ検索
-    public function tag($tag_id)
-    {
-        $quizzes = Quiz::whereTag($tag_id)->paginate(self::PAGE_COUNT);
-        $mst_tags = MstTag::all();
-        return view('public_views.index', compact('quizzes', 'mst_tags'));
-    }
 }
