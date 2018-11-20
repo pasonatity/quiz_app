@@ -43,6 +43,7 @@ class Quiz extends Model
 
     public function scopeWhereTag($query, $tag_id)
     {
+        if (!$tag_id) return $query;
         return $query->whereHas('tag', function ($q) use($tag_id) {
             $q->where('id', $tag_id);
         });

@@ -18,11 +18,12 @@
 //    return view('welcome');
 //});
 
-Route::get('/', 'TopPageController@index')->name('public_view');
-Route::get('/search', 'TopPageController@search')->name('public_view_search');
-Route::get('/tag/{tag_id}', 'TopPageController@tag')->name('public_view_tag');
-Route::get('/item/{quiz_id}', 'QuizViewController@item')->name('public_view_item');
+Route::match(['get', 'post'], '/', 'TopPageController@index')->name('public_view');
 
+Route::get('/', 'TopPageController@index')->name('public_view');
+Route::get('/tag/{tag_id}', 'TopPageController@index')->name('public_view_tag');
+
+Route::get('/item/{quiz_id}', 'QuizViewController@item')->name('public_view_item');
 Route::get('/item/{quiz_id}/content', 'QuizViewController@content');
 
 //Route::get('/auth', function () {
