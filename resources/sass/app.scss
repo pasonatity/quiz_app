@@ -61,3 +61,8 @@ html {
   @extend .invalid-feedback;
   display: block;
 }
+
+.twitter-avatar-size {
+  height: 40px;
+  width: 40px;
+}

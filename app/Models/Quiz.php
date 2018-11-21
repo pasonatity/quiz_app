@@ -26,6 +26,11 @@ class Quiz extends Model
         return $this->belongsTo('App\Models\MstPublicType');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     public function scopeWhereKeyword($query, $keyword)
     {
         if(empty($keyword)) {

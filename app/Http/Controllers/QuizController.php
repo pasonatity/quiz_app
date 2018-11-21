@@ -17,7 +17,9 @@ class QuizController extends Controller
      */
     public function index()
     {
-        //
+//        $user = User::where('id', Auth::id())->first();
+//        $quizzes = Quiz::where()
+        return view('my_pages.index');
     }
 
     /**
@@ -27,7 +29,7 @@ class QuizController extends Controller
      */
     public function create()
     {
-        return view('quizzes.create');
+        return view('my_pages.create');
     }
 
     /**

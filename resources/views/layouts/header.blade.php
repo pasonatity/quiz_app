@@ -8,15 +8,25 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('quiz_create') }}">クイズ作成</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">新規登録</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">ログイン</a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a href="{{ route('my_page_index') }}">
+                            <img src="{{ Auth::user()->avatar }}" class="rounded-circle twitter-avatar-size"/>
+                        </a>
+                    </li>
+                @endauth
+                @guest
+                    {{--<li class="nav-item">--}}
+                        {{--<a class="nav-link" href="{{ route('my_page_create') }}">クイズ作成</a>--}}
+                    {{--</li>--}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('auth_twitter') }}">ログイン</a>
+                    </li>
+                @endguest
+
+                {{--<li class="nav-item">--}}
+                    {{--<a class="nav-link" href="#">ログイン</a>--}}
+                {{--</li>--}}
             </ul>
         </div>
     </div>
