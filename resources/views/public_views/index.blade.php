@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('contents')
-    <div class="mx-auto">
+    <jadiv class="mx-auto">
         <div class="d-flex justify-content-center">
             <form class="form-inline mx-auto" action="{{ route('public_view_search') }}" method="get">
                 <div class="form-group mx-sm-2">
@@ -19,13 +19,16 @@
             <div class="quiz-list py-2">
                 @foreach($quizzes as $quiz)
                     <div class="my-2 mx-2 border-bottom">
-                        <a href="{{ route('public_view_item', $quiz->id) }}">{{ $quiz->quiz_title }}</a><span class="badge badge-pill badge-secondary ml-2">参加者{{ $quiz->participants_number }}人</span>
+                        <div>
+                            <a href="{{ route('public_view_item', $quiz->id) }}">{{ $quiz->quiz_title }}</a><span class="badge badge-pill badge-secondary ml-2">参加者{{ $quiz->participants_number }}人</span>
+                        </div>
                         <div>
                             <span class="text-secondary sub-title">{{ $quiz->quiz_sub_title }}</span>
                         </div>
                     </div>
                 @endforeach
             </div>
+            @if($quizzes->hasPages())
             <div class="justify-content-center">
                 <nav aria-label="pager">
                     <ul class="pagination justify-content-between">
@@ -43,6 +46,7 @@
                     </ul>
                 </nav>
             </div>
+            @endif
         </div>
-    </div>
+    </jadiv>
 @endsection

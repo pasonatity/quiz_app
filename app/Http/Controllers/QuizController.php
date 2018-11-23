@@ -7,6 +7,8 @@ use App\Http\Requests\QuizRequest;
 use App\Models\Quiz;
 use App\Models\Question;
 use App\Models\Item;
+use Auth;
+use App\Http\Controllers\TopPageController;
 
 class QuizController extends Controller
 {
@@ -17,9 +19,8 @@ class QuizController extends Controller
      */
     public function index()
     {
-//        $user = User::where('id', Auth::id())->first();
-//        $quizzes = Quiz::where()
-        return view('my_pages.index');
+        $quizzes = Quiz::whereUser(Auth::id())->paginate(TopPageController::PAGE_COUNT);
+        return view('my_pages.index', compact('quizzes'));
     }
 
     /**

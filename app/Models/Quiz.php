@@ -52,4 +52,11 @@ class Quiz extends Model
             $q->where('id', $tag_id);
         });
     }
+
+    public function scopeWhereUser($query, $user_id)
+    {
+        return $query->whereHas('user', function ($q) use($user_id) {
+            $q->where('id', $user_id);
+        });
+    }
 }
