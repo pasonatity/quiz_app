@@ -1,18 +1,26 @@
 <template>
     <div>
         <div> {{ questionCount + 1 }}/ {{ questionNum }}問</div>
-        <div class="show-answer">
-            <div v-if="showAnswer"
-                 :class="[correct ? 'text-danger' : 'text-primary']"
-            >{{ correct ? '正解' : '不正解' }}</div>
-        </div>
         {{ questions[questionCount].question_content }}
+        <div class="show-answer">
+            <i v-if="showAnswer"
+               class="fa-2x"
+               :class="[correct ? 'far fa-circle text-danger' : 'fas fa-times text-primary']"
+            ></i>
+        </div>
         <div v-for="item in items">
-            <button @click="answer(item.correct)"
+            <button @click="answer($event, item)"
                     :disabled="disabled"
                     :key="item.id"
-                    class="btn btn-primary my-2 select-btn"
+                    class="btn btn-primary my-1 select-btn"
             >{{ item.item_content }}</button>
+        </div>
+        <div class="show-next">
+            <button type="button"
+                    class="btn btn-link ml-auto"
+                    @click="nextQuestion"
+                    v-if="showAnswer"
+            >次へ</button>
         </div>
     </div>
 </template>
@@ -48,9 +56,12 @@
         },
         methods: {
             // 正誤表示・次パネル表示
-            answer(event) {
+            answer(event, item) {
+                // console.log('event:' + event);
+                // console.log('item:' + item);
+                event.target.classList.add('on-select-btn');
                 this.disabled = true;
-                if (event) {
+                if (item.correct) {
                     this.correctNum++;
                     this.correct = true;
                 }
@@ -58,16 +69,26 @@
                 this.showAnswer = true;
 
                 // 次のパネルを表示
-                setTimeout(() => {
-                    if (this.questionCount +1 < this.questionNum) {
-                        this.showAnswer = false;
-                        this.questionCount++;
-                        this.disabled = false;
-                        this.correct = false;
-                    } else {
-                        this.$emit('end-question', this.correctNum);
-                    }
-                }, 1000);
+                // setTimeout(() => {
+                //     if (this.questionCount +1 < this.questionNum) {
+                //         this.showAnswer = false;
+                //         this.questionCount++;
+                //         this.disabled = false;
+                //         this.correct = false;
+                //     } else {
+                //         this.$emit('end-question', this.correctNum);
+                //     }
+                // }, 1000);
+            },
+            nextQuestion() {
+                if (this.questionCount +1 < this.questionNum) {
+                    this.showAnswer = false;
+                    this.questionCount++;
+                    this.disabled = false;
+                    this.correct = false;
+                } else {
+                    this.$emit('end-question', this.correctNum);
+                }
             },
             doShuffle(item) {
                 let i = item.length;
@@ -85,6 +106,14 @@
 
 <style scoped>
     .show-answer {
-        height: 20px;
+        height: 40px;
+    }
+
+    .show-next {
+        height: 45px;
+    }
+    .on-select-btn:disabled {
+        opacity: 1;
+        background-color: #227dc7;
     }
 </style>
