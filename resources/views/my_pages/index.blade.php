@@ -12,7 +12,7 @@
             </div>
             <div class="quiz-list py-2">
                 <div class="d-flex justify-content-center">
-                    <a href="" class="btn btn-primary">クイズ新規作成</a>
+                    <a href="{{ route('my_page_create') }}" class="btn btn-primary">クイズ新規作成</a>
                 </div>
                 @foreach($quizzes as $quiz)
                     <div class="my-2 mx-2 border-bottom">

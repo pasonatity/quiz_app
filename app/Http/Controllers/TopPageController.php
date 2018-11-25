@@ -22,25 +22,25 @@ class TopPageController extends Controller
     // トップページ
     public function index()
     {
-        $quizzes = Quiz::orderBy('participants_number','desc')->paginate(self::PAGE_COUNT);
+        $quizzes = Quiz::where('public_type', 1)->orderBy('challenge_number','desc')->paginate(self::PAGE_COUNT);
         $mst_tags = MstTag::all();
         return view('public_views.index', compact('quizzes','mst_tags'));
-
     }
 
     // 検索
     public function search(Request $request)
     {
         $keyword = $request->keyword;
-        $quizzes = Quiz::whereKeyword($keyword)->paginate(self::PAGE_COUNT);
+        $quizzes = Quiz::whereKeyword($keyword)->where('public_type', 1)->paginate(self::PAGE_COUNT);
         $mst_tags = MstTag::all();
+        \Debugbar::log($request->old('keyword'));
         return view('public_views.index', compact('quizzes', 'mst_tags'));
     }
 
     // タグ検索
     public function tag($tag_id)
     {
-        $quizzes = Quiz::whereTag($tag_id)->paginate(self::PAGE_COUNT);
+        $quizzes = Quiz::whereTag($tag_id)->where('public_type', 1)->paginate(self::PAGE_COUNT);
         $mst_tags = MstTag::all();
         return view('public_views.index', compact('quizzes', 'mst_tags'));
     }

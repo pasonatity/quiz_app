@@ -19,16 +19,16 @@ class QuizViewController extends Controller
     {
         $quiz_content = Quiz::where('id', $quiz_id)->first();
         if($quiz_content) {
-            $this->increaseParticipantsNumber($quiz_content);
+            $this->increaseChallengeNumber($quiz_content);
         }
         return new QuizResource($quiz_content);
     }
 
-    // 参加人数+1
-    private function increaseParticipantsNumber($quiz)
+    // チャレンジ回数+1
+    private function increaseChallengeNumber($quiz)
     {
-        \Debugbar::log('参加人数＋１');
-        $quiz->participants_number += 1;
+        \Debugbar::log('チャレンジ回数＋１');
+        $quiz->challenge_number += 1;
         $quiz->save();
     }
 }
