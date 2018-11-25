@@ -12,12 +12,12 @@ class TestQuizzesTableSeeder extends Seeder
     public function run()
     {
         // 公開データ
-        $this->insert('testTitle1', 'testSubTitle1', 1, true);
+        $this->insert('testTitle1', 'testSubTitle1', 1, 2);
 
         // 非公開データ
-        for ($i = 2; $i <= 30; $i++) {
-            $this->insert('testTitle'. $i, 'testSubTitle'. $i, 3, true);
-        }
+//        for ($i = 2; $i <= 10; $i++) {
+//            $this->insert('testTitle'. $i, 'testSubTitle'. $i, 3, 2);
+//        }
     }
 
     private function insert($title, $sub_title, $public_type, $sort)
@@ -26,7 +26,7 @@ class TestQuizzesTableSeeder extends Seeder
             'quiz_title' => $title,
             'quiz_sub_title' => $sub_title,
             'public_type' => $public_type,
-            'sort' => $sort
+            'question_number' => $sort
         ]);
     }
 }

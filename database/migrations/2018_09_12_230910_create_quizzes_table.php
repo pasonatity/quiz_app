@@ -19,9 +19,11 @@ class CreateQuizzesTable extends Migration
             $table->unsignedInteger('user_id')->nullable()->comment('ユーザーID');
             $table->string('quiz_title')->comment('クイズタイトル');
             $table->string('quiz_sub_title')->nullable()->comment('クイズサブタイトル');
-            $table->unsignedInteger('participants_number')->default(0)->comment('参加者数');
+            $table->unsignedInteger('challenge_number')->default(0)->comment('チャレンジ回数');
             $table->unsignedInteger('public_type')->comment('公開区分');
-            $table->boolean('sort')->comment('問題順');
+            $table->unsignedInteger('question_number')->comment('問題数');
+            $table->unsignedInteger('question_sum')->default(0)->comment('問題数合計');
+            $table->unsignedInteger('correct_sum')->default(0)->comment('正解数合計');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null')->onUpdate('set null');

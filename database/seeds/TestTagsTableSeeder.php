@@ -13,8 +13,6 @@ class TestTagsTableSeeder extends Seeder
     {
         $tags = [
             [1, 1],
-            [1, 2],
-            [2, 3]
         ];
         foreach ($tags as $tag) {
             DB::table('tags')->insert([
