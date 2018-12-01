@@ -7,7 +7,7 @@
                         <button type="button" class="btn-none" @click="onToggle" :aria-expanded="question.toggle">
                             <i class="fas" :class="[question.toggle ? 'fa-chevron-down' : 'fa-chevron-up']"></i>
                         </button>
-                        <label class="title-label">問題内容{{ questionNumber }}</label><span class="required-label"></span>
+                        <label class="title-label">問題{{ questionNumber }}</label><span class="required-label"></span>
                         <button type="button" class="close ml-auto" @click="removeQuestion">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -15,14 +15,12 @@
                                class="form-control"
                                :class="{'is-invalid': errors.has('questions[' + index + ']content')}"
                                :name="'questions['+ index  + ']content'"
-                               v-validate="'required'"
+                               data-vv-as="問題"
+                               v-validate="'required|max:60'"
                                v-model="question.content"
-                               placeholder="問題内容を入力してください"
+                               placeholder="問題を入力してください"
                         />
-                        <span>{{ errors.first('questions[' + index + ']content') }}</span>
-                        <!--<div v-if="errors.has('questions.' + index + '.content')" class="invalid-feedback">-->
-                            <!--{{ errors.get('questions.' + index + '.content') }}-->
-                        <!--</div>-->
+                        <span class="text-danger">{{ errors.first('questions[' + index + ']content') }}</span>
                     </div>
                 </div>
             </div>
@@ -34,27 +32,24 @@
                                class="form-control"
                                :class="{'is-invalid': errors.has('questions[' + index + ']correct')}"
                                :name="'questions[' + index + ']correct'"
-                               v-validate="'required'"
+                               data-vv-as="正解"
+                               v-validate="'required|max:30'"
                                v-model="question.correct"
                                placeholder="正解を入力してください"
                         />
-                        <!--<div v-if="errors.get('questions.' + index + '.correct')" class="invalid-feedback">-->
-                            <!--{{ errors.get('questions.' + index + '.correct') }}-->
-                        <!--</div>-->
-                        <span>{{ errors.first('questions[' + index + ']correct') }}</span>
+                        <span class="text-danger">{{ errors.first('questions[' + index + ']correct') }}</span>
                     </div>
                     <div class="">
                         <label class="title-label">選択肢:不正解</label><span>(最大{{ maxIncorrect }}個)</span><span class="required-label"></span>
                         <InputIncorrect :incorrect="incorrect"
                                         :incorrectIndex="incorrectIndex"
                                         :index="index"
-
                                         :key="incorrectIndex"
                                         @removeItem="removeItem"
                                         v-for="(incorrect, incorrectIndex) in question.incorrect"
                         ></InputIncorrect>
                         <button type="button" class="btn btn-none" @click="addItem">
-                            <i class="fas fa-plus-circle fa-2x blue"></i>
+                            <i class="fas fa-plus-circle fa-2x text-primary"></i>
                         </button>
                     </div>
                 </div>
@@ -70,7 +65,6 @@
             InputIncorrect
         },
         inject: ['$validator'],
-        // errorsを削除
         props: ['question', 'index', 'maxIncorrect'] ,
         computed: {
             questionNumber() {

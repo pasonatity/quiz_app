@@ -1,5 +1,6 @@
 <template>
     <div id="quiz">
+        <!--<i class="fas fa-spinner faa-spin animated"></i>-->
         <div v-if="!panel.data && !panelError" class="text-center">読み込み中...</div>
         <div v-if="panelError" class="text-center">指定URLのクイズは見つかりません</div>
         <div v-if="panel.data" class="main text-center">

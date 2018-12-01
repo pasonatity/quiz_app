@@ -5,7 +5,8 @@
                    class="form-control col px-placeholder"
                    :class="{'is-invalid': errors.has('questions[' + index + ']incorrect[' + incorrectIndex + ']item')}"
                    :name="'questions[' + index + ']incorrect[' + incorrectIndex + ']item'"
-                   v-validate="'required'"
+                   data-vv-as="不正解"
+                   v-validate="'required|max:30'"
                    placeholder="不正解を入力してください"
                    v-model="incorrect.item"
             />
@@ -13,16 +14,12 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <span>{{ errors.first('questions[' + index + ']incorrect[' + incorrectIndex + ']item') }}</span>
-        <!--<div v-if="errors.has('questions.' + index + '.incorrect.' + incorrectIndex + '.item')" class="invalid-feedback-block">-->
-            <!--{{ errors.get('questions.' + index + '.incorrect.' + incorrectIndex + '.item') }}-->
-        <!--</div>-->
+        <span class="text-danger">{{ errors.first('questions[' + index + ']incorrect[' + incorrectIndex + ']item') }}</span>
     </div>
 </template>
 
 <script>
     export default {
-        // errorsを削除
         props: ['incorrect','index', 'incorrectIndex' ],
         inject: ['$validator'],
         methods: {

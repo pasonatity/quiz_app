@@ -24,10 +24,13 @@ class QuizRequest extends FormRequest
     public function rules()
     {
         return [
-            'quizTitle' => 'required',
-            'questions.*.content' => 'required',
-            'questions.*.correct' => 'required',
-            'questions.*.incorrect.*.item' => 'required'
+            'quizTitle'                    => 'required|max:60',
+            'quizSubTitle'                 => 'max:60',
+            'questions.*.content'          => 'required|max:60',
+            'questions.*.correct'          => 'required|max:30',
+            'questions.*.incorrect.*.item' => 'required|max:30',
+            'publicType'                   => 'required',
+            'questionNumber'               => 'required',
         ];
     }
 }

@@ -20,13 +20,9 @@
                         {{--<a class="nav-link" href="{{ route('my_page_create') }}">クイズ作成</a>--}}
                     {{--</li>--}}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('auth_twitter') }}">ログイン</a>
+                        <a class="nav-link" href="{{ route('twitter_login') }}">ログイン</a>
                     </li>
                 @endguest
-
-                {{--<li class="nav-item">--}}
-                    {{--<a class="nav-link" href="#">ログイン</a>--}}
-                {{--</li>--}}
             </ul>
         </div>
     </div>

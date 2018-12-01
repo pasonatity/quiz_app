@@ -9,9 +9,12 @@ require('./bootstrap');
 window.Vue = require('vue');
 window.axios = require('axios');
 import Vue from 'vue';
-import VeeValidate from 'vee-validate';
+import VeeValidate, { Validator } from 'vee-validate';
+import ja from 'vee-validate/dist/locale/ja'
 
-Vue.use(VeeValidate);
+Validator.localize('ja', ja);
+// Vue.use(VeeValidate);
+Vue.use(VeeValidate, { locale: ja });
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -25,7 +28,6 @@ Vue.component('create-page', require('./components/quizzes/InputIncorrect'));
 // ページ単位のコンポーネント
 Vue.component('quiz-page', require('./pages/Quiz'));
 Vue.component('create-page', require('./pages/Create'));
-
 
 const app = new Vue({
     el: '#app'

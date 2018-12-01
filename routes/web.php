@@ -31,6 +31,9 @@ Route::get('/item/{quiz_id}/content', 'QuizViewController@content');
 //    return view('auth');
 //})->name('auth');
 
+Route::get('/twitter/login', function () {
+    return view('public_views.twitter_login');
+})->name('twitter_login');
 Route::get('/auth/twitter', 'Auth\LoginController@redirectToProvider')->name('auth_twitter');
 Route::get('/auth/twitter/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('/auth/twitter/logout', 'Auth\LoginController@logout')->name('auth_logout');
