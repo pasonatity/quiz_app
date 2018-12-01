@@ -43,49 +43,49 @@ class QuizController extends Controller
     public function store(QuizRequest $request)
     {
         \Debugbar::log($request->all());
-        DB::beginTransaction();
-        try {
+        DB::transaction(function () use ($request) {
             // クイズテーブル登録
             $quiz = new Quiz();
             // TODO:認証確認
-            $quiz->user_id         = Auth::id();
-            $quiz->quiz_title      = $request->quizTitle;
-            $quiz->quiz_sub_title  = $request->quizSubTitle;
-            $quiz->public_type     = $request->publicType;
-            $quiz->question_number = $request->questionNumber;
-            $quiz->save();
+            $quiz->fill([
+                'user_id' => Auth::id(),
+                'quiz_title' => $request->quizTitle,
+                'quiz_sub_title' => $request->quizSubTitle,
+                'public_type' => $request->publicType,
+                'question_number' => $request->questionNumber
+            ])->save();
+
             foreach ($request->questions as $request_question) {
                 \Debugbar::log($request_question);
                 // 質問テーブル登録
                 $question = new Question();
-                $question->quiz_id = $quiz->id;
-                $question->question_content = $request_question['content'];
-                $question->save();
+                $question->fill([
+                    'quiz_id' => $quiz->id,
+                    'question_content' => $request_question['content']
+                ])->save();
 
                 // 項目テーブル(正解)登録
                 $item_correct = new Item();
-                $item_correct->question_id  = $question->id;
-                $item_correct->item_content = $request_question['correct'];
-                $item_correct->correct      = true;
-                $item_correct->save();
+                $item_correct->fill([
+                    'question_id' => $question->id,
+                    'item_content' => $request_question['correct'],
+                    'correct' => true
+                ])->save();
+
+//                throw new \Exception('例外テスト');
 
                 foreach ($request_question['incorrect'] as $request_incorrect) {
                     // 項目テーブル(不正解)登録
                     $item_incorrect = new Item();
-                    $item_incorrect->question_id  = $question->id;
-                    $item_incorrect->item_content = $request_incorrect['item'];
-                    $item_incorrect->correct      = false;
-                    $item_incorrect->save();
+                    $item_incorrect->fill([
+                        'question_id' => $question->id,
+                        'item_content' => $request_incorrect['item'],
+                        'correct' => false
+                    ])->save();
                 }
             }
-            DB::commit();
-            return;
-
-        }catch(\PDOException $e){
-            DB::rollback();
-            return;
-        }
-//        return;
+        });
+        return;
     }
 
     /**
