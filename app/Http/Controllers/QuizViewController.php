@@ -24,10 +24,10 @@ class QuizViewController extends Controller
         return new QuizResource($quiz_content);
     }
 
-    // チャレンジ回数+1
+    // 挑戦数+1
     private function increaseChallengeNumber($quiz)
     {
-        \Debugbar::log('チャレンジ回数＋１');
+        \Debugbar::log('挑戦数＋１');
         $quiz->challenge_number += 1;
         $quiz->save();
     }

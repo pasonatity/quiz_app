@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('contents')
+    @if(Session::has('msg_save'))
+        <div class="d-flex justify-content-center">
+            <div class="alert alert-warning alert-dismissible fade show width-240" role="alert">
+                保存しました
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    @endif
     <div class="mx-auto">
         <div class="main">
             <div class="d-flex justify-content-between">
