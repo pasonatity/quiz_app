@@ -58,28 +58,19 @@ class LoginController extends Controller
     public function handleProviderCallback()
     {
         $user = Socialite::driver('twitter')->user();
-        $authUser = $this->findOrCreateUser($user);
-        Auth::login($authUser, true);
+        $authUser = User::updateOrCreate(
+            ['twitter_id' => $user->id],
+            [
+                'name' => $user->name,
+                'nickname' => $user->nickname,
+                'avatar' => $user->avatar
+            ]
+        );
+        Auth::login($authUser);
 
         return redirect()->route('my_page_index');
-
     }
 
-    private function findOrCreateUser($twitterUser)
-    {
-        $authUser = User::where('twitter_id', $twitterUser->id)->first();
-
-        if ($authUser){
-            return $authUser;
-        }
-
-        return User::create([
-            'name' => $twitterUser->name,
-            'nickname' => $twitterUser->nickname,
-            'twitter_id' => $twitterUser->id,
-            'avatar' => $twitterUser->avatar
-        ]);
-    }
     public function logout()
     {
         Auth::logout();
