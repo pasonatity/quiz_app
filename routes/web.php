@@ -46,6 +46,8 @@ Route::get('/auth/twitter/logout', 'Auth\LoginController@logout')->name('auth_lo
 // クイズ作成遷移時
 Route::get('/create-quiz', 'CreateQuiz')->name('create_quiz');
 // クイズ作成
-Route::get('/my_page/index', 'QuizController@index')->name('my_page_index');
-Route::get('/my_page/create', 'QuizController@create')->name('my_page_create');
-Route::post('/my_page/store', 'QuizController@store')->name('my_page_store');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/my_page/index', 'QuizController@index')->name('my_page_index');
+    Route::get('/my_page/create', 'QuizController@create')->name('my_page_create');
+    Route::post('/my_page/store', 'QuizController@store')->name('my_page_store');
+});
