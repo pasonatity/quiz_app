@@ -124,7 +124,7 @@
             InputQuestion,
             InputIncorrect
         },
-        props: ['url'],
+        props: ['indexUrl', 'storeUrl'],
         data() {
             return{
                 quizTitle: '',
@@ -217,16 +217,15 @@
                     };
                     quiz.questions = this.questions;
 
-                    axios.post('store', quiz)
+                    axios.post(this.storeUrl, quiz)
                         .then(res => {
                             // console.log('success');
-                            location.href = this.url;
+                            location.href = this.indexUrl;
                         })
                         .catch(e => {
                             this.saveBtnDisabled = false;
                             this.loading = false;
                             this.responseError = true;
-                            // this.errors.record(e.response.data.errors);
                         });
                 });
             },

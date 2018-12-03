@@ -10,7 +10,7 @@ class CreateQuiz extends Controller
     public function __invoke()
     {
         if (Auth::check()) {
-            return view('my_pages.create');
+            return redirect(route('my_page_create'));
         }
         return view('public_views.twitter_login');
     }

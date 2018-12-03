@@ -90,6 +90,7 @@ class QuizController extends Controller
                 }
             }
         });
+        $request->session()->flash('msg_save', '保存しました');
         return;
     }
 

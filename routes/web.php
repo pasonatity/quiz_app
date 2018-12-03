@@ -49,5 +49,3 @@ Route::get('/create-quiz', 'CreateQuiz')->name('create_quiz');
 Route::get('/my_page/index', 'QuizController@index')->name('my_page_index');
 Route::get('/my_page/create', 'QuizController@create')->name('my_page_create');
 Route::post('/my_page/store', 'QuizController@store')->name('my_page_store');
-
-Route::get('/my_page/store-redirect', 'QuizRedirectController@storeRedirect')->name('my_page_store_redirect');
