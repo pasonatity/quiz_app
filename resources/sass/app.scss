@@ -36,12 +36,6 @@ html {
   padding-bottom: 15px;
 }
 
-@media (min-width: 576px) {
-  .select-btn{
-    width: 400px;
-  }
-}
-
 .required-label:after {
   content: '(必須)';
   color: $red;

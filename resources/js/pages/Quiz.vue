@@ -16,11 +16,12 @@
                            :content="panel"
                            @end-question="showResult"
             ></QuestionPanel>
-            <div v-if="show === 'resultPanel'" class="">
-                <div class="alert alert-info">
-                    <h5 class="alert-heading"><strong>結果発表</strong></h5>
-                    <div>{{ correctNum }}  / {{ panel.data.questions.length }} 問正解</div>
-                    <div>{{ resultComment }}</div>
+            <div v-if="show === 'resultPanel'">
+                <div class="d-flex justify-content-center">
+                    <div class="alert alert-info col-8 col-md-4">
+                        <h5 class="alert-heading"><strong>結果発表</strong></h5>
+                        <div>{{ correctNum }}  / {{ panel.data.questions.length }} 問正解！</div>
+                    </div>
                 </div>
                 <a :href="url" class="btn btn-primary">もう一度</a>
             </div>
@@ -59,14 +60,6 @@
             showResult(correctNum) {
                 this.correctNum = correctNum;
                 this.show = 'resultPanel';
-            }
-        },
-        computed: {
-            resultComment() {
-                let comment = this.panel.data.results.filter(el => {
-                    return this.correctNum >= el.correct_number
-                });
-                return comment[comment.length - 1].comment;
             }
         }
     }

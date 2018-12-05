@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div> {{ questionCount + 1 }}/ {{ questionNum }}問</div>
+        <div> {{ questionCount + 1 }} / {{ questionNum }}問</div>
         {{ questions[questionCount].question_content }}
         <div class="show-answer">
             <i v-if="showAnswer"
@@ -12,7 +12,7 @@
             <button @click="answer($event, item)"
                     :disabled="disabled"
                     :key="item.id"
-                    class="btn btn-primary my-1 select-btn"
+                    class="btn btn-primary my-1 col-12 col-sm-10 col-md-8 col-lg-6 select-btn"
             >{{ item.item_content }}</button>
         </div>
         <div class="show-next">
@@ -67,18 +67,6 @@
                 }
                 // console.log(this.correct);
                 this.showAnswer = true;
-
-                // 次のパネルを表示
-                // setTimeout(() => {
-                //     if (this.questionCount +1 < this.questionNum) {
-                //         this.showAnswer = false;
-                //         this.questionCount++;
-                //         this.disabled = false;
-                //         this.correct = false;
-                //     } else {
-                //         this.$emit('end-question', this.correctNum);
-                //     }
-                // }, 1000);
             },
             nextQuestion() {
                 if (this.questionCount +1 < this.questionNum) {
@@ -112,8 +100,13 @@
     .show-next {
         height: 45px;
     }
+
+    .select-btn:disabled {
+        opacity: 0.9;
+    }
+
     .on-select-btn:disabled {
-        opacity: 1;
-        background-color: #227dc7;
+        opacity: 0.5;
+        /*background-color: #227dc7;*/
     }
 </style>

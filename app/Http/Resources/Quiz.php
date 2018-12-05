@@ -15,7 +15,7 @@ class Quiz extends JsonResource
             'quiz_title' => $this->quiz_title,
             'quiz_sub_title' => $this->quiz_sub_title,
             'questions' => QuestionResource::collection($this->question),
-            'results' => ResultResource::collection($this->result)
+//            'results' => ResultResource::collection($this->result)
         ];
     }
 }
