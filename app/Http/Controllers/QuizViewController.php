@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Quiz;
-use App\Http\Resources\Quiz as QuizResource;
+use App\Http\Resources\QuizViewResource;
 
 class QuizViewController extends Controller
 {
@@ -21,7 +21,7 @@ class QuizViewController extends Controller
         if($quiz_content) {
             $this->increaseChallengeNumber($quiz_content);
         }
-        return new QuizResource($quiz_content);
+        return new QuizViewResource($quiz_content);
     }
 
     // 挑戦数+1

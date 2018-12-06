@@ -2,12 +2,18 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\Question as QuestionResource;
-use App\Http\Resources\Result as ResultResource;
+use App\Http\Resources\QuestionResource;
+use App\Http\Resources\ResultResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Quiz extends JsonResource
+class QuizResource extends JsonResource
 {
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
     public function toArray($request)
     {
         return [
@@ -16,6 +22,7 @@ class Quiz extends JsonResource
             'quiz_sub_title' => $this->quiz_sub_title,
             'questions' => QuestionResource::collection($this->question),
 //            'results' => ResultResource::collection($this->result)
+            'public_type' => $this->public_type
         ];
     }
 }

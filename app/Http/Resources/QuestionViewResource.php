@@ -2,17 +2,18 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\ItemViewResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Result extends JsonResource
+class QuestionViewResource extends JsonResource
 {
     public function toArray($request)
     {
         return [
 //            'id' => $this->id,
 //            'quiz_id' => $this->quiz_id,
-            'correct_number' => $this->correct_number,
-            'comment' => $this->comment
+            'question_content' => $this->question_content,
+            'items' => ItemViewResource::collection($this->item)
         ];
     }
 }

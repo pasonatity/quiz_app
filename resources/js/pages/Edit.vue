@@ -12,19 +12,30 @@
             InputQuestion,
             InputIncorrect
         },
-        props: ['indexUrl', 'postUrl'],
+        props: ['indexUrl', 'postUrl', 'quizSample', 'id'],
         data () {
             return {
-                quiz: {
+                quiz:{
                     quizTitle: '',
                     quizSubTitle: '',
                     publicType:1,
                     questions: [
-                        {content: '', correct: [{item: ''}], incorrect: [{item: ''}], toggle: true}
-                        // {question_content: '', items: [{correct: 1, item_content: ''}, {correct: 0, item_content: ''}], toggle: true}
+                        {content: '', correct: '', incorrect: [{item: ''}], toggle: true}
                     ]
-                }
+                },
+                sample:{}
             }
+        },
+        created() {
+            axios.get('/my_page/show/' + this.id).then(res => {
+                let resData = res.data;
+                for(let i = 0; i < resData.data.questions.length; i++) {
+                    resData.data.questions[i].toggle = true;
+                }
+                this.sample = resData.data;
+            }).catch(error => {
+                // this.panelError = true;
+            });
         }
     }
 </script>

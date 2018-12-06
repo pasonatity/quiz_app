@@ -21,13 +21,15 @@ Vue.use(VeeValidate, { locale: ja });
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 // ページ内で利用するパーツコンポーネント
-Vue.component('quiz-page', require('./components/public_veiws/QuestionPanel'));
-Vue.component('create-page', require('./components/quizzes/InputQuestion'));
-Vue.component('create-page', require('./components/quizzes/InputIncorrect'));
+// Vue.component('quiz-page', require('./components/public_veiws/QuestionPanel'));
+// Vue.component('create-page', require('./components/quizzes/Form'));
+// Vue.component('create-page', require('./components/quizzes/InputQuestion'));
+// Vue.component('create-page', require('./components/quizzes/InputIncorrect'));
 
 // ページ単位のコンポーネント
 Vue.component('quiz-page', require('./pages/Quiz'));
 Vue.component('create-page', require('./pages/Create'));
+Vue.component('edit-page', require('./pages/Edit'));
 
 const app = new Vue({
     el: '#app'
