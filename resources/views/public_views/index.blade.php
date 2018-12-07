@@ -10,21 +10,30 @@
         <a class="btn btn-primary" href="{{ route('create_quiz') }}">クイズ作成</a>
     </div>
     <div class="mx-auto">
-        <div class="d-flex justify-content-center">
-            <form class="input-group form-inline col-sm-12 col-lg-4" action="{{ route('public_view_search') }}" method="get">
-                <input type="text" name="keyword" class="form-control">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-primary" type="submit">検索</button>
-                </div>
-            </form>
-        </div>
-        <div class="d-flex justify-content-center my-2">
-            @foreach($mst_tags as $mst_tag)
-                <h5><a href="{{ route('public_view_tag', $mst_tag->id) }}" class="badge badge badge-primary tags mx-1">{{ $mst_tag->tag_name }}</a></h5>
-            @endforeach
+        {{--<div class="d-flex justify-content-center">--}}
+            {{--<form class="input-group form-inline col-sm-12 col-lg-4" action="{{ route('public_view_search') }}" method="get">--}}
+                {{--<input type="text" name="keyword" class="form-control">--}}
+                {{--<div class="input-group-append">--}}
+                    {{--<button class="btn btn-outline-primary" type="submit">検索</button>--}}
+                {{--</div>--}}
+            {{--</form>--}}
+        {{--</div>--}}
+        {{--<div class="d-flex justify-content-center my-2">--}}
+            {{--@foreach($mst_tags as $mst_tag)--}}
+                {{--<h5><a href="{{ route('public_view_tag', $mst_tag->id) }}" class="badge badge badge-primary tags mx-1">{{ $mst_tag->tag_name }}</a></h5>--}}
+            {{--@endforeach--}}
+        {{--</div>--}}
+
+        <div class="d-flex justify-content-center mt-5">
+            <h5>みんなのクイズ</h5>
+            {{--<span>(人気順)</span>--}}
         </div>
         <div class="main">
-            <div class="quiz-list py-2">
+            {{--<div class="text-right">--}}
+                {{--<a href="" class="btn btn-link py-0 px-1">人気順</a>--}}
+                {{--<a href="" class="btn btn-link py-0 px-1">新着順</a>--}}
+            {{--</div>--}}
+            <div class="quiz-list pb-2">
                 @foreach($quizzes as $quiz)
                     <div class="my-2 mx-2 border-bottom">
                         <div>
