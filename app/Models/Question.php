@@ -20,4 +20,10 @@ class Question extends Model
         return $this->hasMany('App\Models\item');
     }
 
+    public function scopeWhereQuiz($query, $quiz_id)
+    {
+        return $query->whereHas('quiz', function ($q) use($quiz_id) {
+            $q->where('quiz_id', $quiz_id);
+        });
+    }
 }

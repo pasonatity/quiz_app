@@ -85,7 +85,7 @@ class QuizController extends Controller
                 }
             }
         });
-        $request->session()->flash('msg_save', '保存しました');
+        $this->flashMsgSave($request);
         return;
     }
 
@@ -97,6 +97,8 @@ class QuizController extends Controller
      */
     public function show($id)
     {
+        $this->userCheck($id);
+
         return new QuizResource(Quiz::find($id));
     }
 
@@ -108,13 +110,9 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        $quiz = Quiz::whereUser(Auth::id())->where('id', $id)->first();
+        $this->userCheck($id);
 
-        if (!$quiz) {
-            return redirect(route('my_page_index'))->with('msg_error', 'クイズが見つかりませんでした');
-        }
-        \Debugbar::log($quiz);
-        return view('my_pages.edit', compact('quiz','id'));
+        return view('my_pages.edit', compact('id'));
     }
 
     /**
@@ -127,8 +125,9 @@ class QuizController extends Controller
     public function update(QuizRequest $request, $id)
     {
         \Debugbar::log($request->all());
+
         DB::transaction(function () use ($request, $id) {
-            // クイズテーブル登録
+            // クイズテーブルを更新する
             $quiz = Quiz::find($id);
             $quiz->fill([
 //                'user_id'         => Auth::id(),
@@ -138,32 +137,36 @@ class QuizController extends Controller
                 'question_number' => $request->questionNumber
             ])->save();
 
+            // 質問テーブルをDelete Insertする
+            $questions = Question::whereQuiz($quiz->id)->get();
+            // クイズIDに紐づく質問テーブル・項目テーブルのデータを削除
+            foreach ($questions as $question) {
+                $question->delete();
+            }
+            // 質問テーブルにデータを登録する
             foreach ($request->questions as $request_question) {
                 \Debugbar::log($request_question);
+
                 // 質問テーブル登録
-                $question = Question::find($quiz->id);
+                $question = new Question();
                 $question->fill([
-//                    'quiz_id'          => $quiz->id,
+                    'quiz_id'          => $quiz->id,
                     'question_content' => $request_question['content']
                 ])->save();
 
                 // 項目テーブル(正解)登録
-                $item_correct = Item::where('id', $question->id)
-                    ->where('correct', true)
-                    ->first();
+                $item_correct = new Item();
                 $item_correct->fill([
-//                    'question_id'  => $question->id,
+                    'question_id'  => $question->id,
                     'item_content' => $request_question['correct'],
-//                    'correct'      => true
+                    'correct'      => true
                 ])->save();
 
 //                throw new \Exception('例外テスト');
 
                 foreach ($request_question['incorrect'] as $request_incorrect) {
                     // 項目テーブル(不正解)登録
-                    $item_incorrect = Item::where('id', $question->id)
-                        ->where('correct', false)
-                        ->get();
+                    $item_incorrect = new Item();
                     $item_incorrect->fill([
                         'question_id'  => $question->id,
                         'item_content' => $request_incorrect['item'],
@@ -184,11 +187,22 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->userCheck($id);
+        Quiz::find($id)->delete();
+        return redirect(route('my_page_index'))->with('msg_delete', '削除しました');
     }
 
     private function flashMsgSave($request)
     {
         $request->session()->flash('msg_save', '保存しました');
+    }
+
+    private function userCheck($quiz_id)
+    {
+        $quiz = Quiz::whereUser(Auth::id())->where('id', $quiz_id)->first();
+        if (!$quiz) {
+            return redirect(route('my_page_index'))->with('msg_error', 'クイズが見つかりませんでした');
+        }
+        return;
     }
 }

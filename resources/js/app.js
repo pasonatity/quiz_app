@@ -21,7 +21,7 @@ Vue.use(VeeValidate, { locale: ja });
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 // ページ内で利用するパーツコンポーネント
-// Vue.component('quiz-page', require('./components/public_veiws/QuestionPanel'));
+// Vue.component('quiz-page', require('./components/public_views/QuestionPanel'));
 // Vue.component('create-page', require('./components/quizzes/Form'));
 // Vue.component('create-page', require('./components/quizzes/InputQuestion'));
 // Vue.component('create-page', require('./components/quizzes/InputIncorrect'));
@@ -35,3 +35,12 @@ const app = new Vue({
     el: '#app'
 });
 
+let btnDelete = document.getElementsByClassName("btn-delete");
+for (let i = 0; i < btnDelete.length; i++) {
+    btnDelete[i].addEventListener('click', function(e) {
+        if (confirm('削除します。よろしいですか？')) {
+            document.getElementsByClassName("loading-bg")[0].style.display = 'block';
+            document.getElementById('form_' + this.dataset.id).submit();
+        }
+    });
+}

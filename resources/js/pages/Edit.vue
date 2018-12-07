@@ -1,5 +1,5 @@
 <template>
-    <From :index-url="indexUrl" :post-url="postUrl" :quiz="quiz"></From>
+    <From v-if="0 < Object.keys(quiz).length" :index-url="indexUrl" :post-url="postUrl" :quiz="quiz"></From>
 </template>
 
 <script>

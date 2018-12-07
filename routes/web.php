@@ -51,6 +51,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/my_page/create', 'QuizController@create')->name('my_page_create');
     Route::post('/my_page/store', 'QuizController@store')->name('my_page_store');
     Route::get('/my_page/edit/{id}', 'QuizController@edit')->name('my_page_edit');
-    // TODO:アカウント違い
     Route::get('/my_page/show/{id}', 'QuizController@show')->name('my_page_show');
+    Route::post('/my_page/update/{id}', 'QuizController@update')->name('my_page_update');
+    Route::delete('/my_page/destroy/{id}', 'QuizController@destroy')->name('my_page_destroy');
+
 });

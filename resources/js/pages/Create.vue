@@ -20,8 +20,7 @@
                     quizSubTitle: '',
                     publicType:1,
                     questions: [
-                        {content: '', correct: [{item: ''}], incorrect: [{item: ''}], toggle: true}
-                        // {question_content: '', items: [{correct: 1, item_content: ''}, {correct: 0, item_content: ''}], toggle: true}
+                        {content: '', correct: '', incorrect: [{item: ''}], toggle: true}
                     ]
                 }
             }
