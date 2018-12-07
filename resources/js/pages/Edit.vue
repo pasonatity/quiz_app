@@ -15,15 +15,15 @@
         props: ['indexUrl', 'postUrl', 'quizSample', 'id'],
         data () {
             return {
-                quiz:{
-                    quizTitle: '',
-                    quizSubTitle: '',
-                    publicType:1,
-                    questions: [
-                        {content: '', correct: '', incorrect: [{item: ''}], toggle: true}
-                    ]
-                },
-                sample:{}
+                // quiz:{
+                //     quizTitle: '',
+                //     quizSubTitle: '',
+                //     publicType:1,
+                //     questions: [
+                //         {content: '', correct: '', incorrect: [{item: ''}], toggle: true}
+                //     ]
+                // },
+                quiz: {}
             }
         },
         created() {
@@ -32,7 +32,7 @@
                 for(let i = 0; i < resData.data.questions.length; i++) {
                     resData.data.questions[i].toggle = true;
                 }
-                this.sample = resData.data;
+                this.quiz = resData.data;
             }).catch(error => {
                 // this.panelError = true;
             });

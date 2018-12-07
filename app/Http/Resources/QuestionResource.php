@@ -17,17 +17,16 @@ class QuestionResource extends JsonResource
      */
     public function toArray($request)
     {
-        $correct_item = Item::whereCorrectItem($this->id)->get();
-        $incorrect_item = Item::whereIncorrectItem($this->id)->get();
-        $sample = ItemResource::collection($correct_item);
+        $correct_item = Item::whereCorrectItem($this->id)->first();
+        $incorrect_item = Item::whereIncorrectItems($this->id)->get();
 
         return [
-            'id' => $this->id,
+//            'id' => $this->id,
 //            'quiz_id' => $this->quiz_id,
             'content' => $this->question_content,
-            'correct' => ItemResource::collection($correct_item),
+            'correct' => $correct_item->item_content,
             'incorrect' => ItemResource::collection($incorrect_item),
-            'item' => ItemResource::collection($this->item)
+//            'item' => ItemResource::collection($this->item)
         ];
     }
 }

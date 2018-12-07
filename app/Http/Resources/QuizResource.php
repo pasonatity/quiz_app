@@ -18,11 +18,11 @@ class QuizResource extends JsonResource
     {
         return [
 //            'id' => $this->id,
-            'quiz_title' => $this->quiz_title,
-            'quiz_sub_title' => $this->quiz_sub_title,
-            'questions' => QuestionResource::collection($this->question),
-//            'results' => ResultResource::collection($this->result)
-            'public_type' => $this->public_type
+            'quizTitle'    => $this->quiz_title,
+            'quizSubTitle' => $this->quiz_sub_title,
+            'questions'    => QuestionResource::collection($this->question),
+//            'results'    => ResultResource::collection($this->result)
+            'publicType'   => $this->public_type
         ];
     }
 }
