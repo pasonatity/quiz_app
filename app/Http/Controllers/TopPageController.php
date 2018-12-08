@@ -9,15 +9,6 @@ use App\Models\MstTag;
 
 class TopPageController extends Controller
 {
-//    protected $public_view_repo;
-//
-//    public function __construct(
-//        PublicViewRepositoryInterface $public_view_repo
-//    )
-//    {
-//        $this->public_view_repo = $public_view_repo;
-//    }
-
     CONST PAGE_COUNT = 10;
     // トップページ
     public function index()

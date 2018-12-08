@@ -44,7 +44,7 @@
                                 @click="nextSetting"
                                 name="nextSetting"
                                 class="col-md-4 btn btn-outline-primary btn-block mx-auto width-200"
-                        >保存</button>
+                        >次へ</button>
                         <button v-show="false"
                                 type="button"
                                 name="quizSetting"
@@ -72,16 +72,19 @@
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="radio" name="public_type" v-model="quiz.publicType" value="1"> 一般公開
                                         </label>
+                                        <small class="text-muted">(みんなに公開します)</small>
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="radio" name="public_type" v-model="quiz.publicType" value="2"> 限定公開
                                         </label>
+                                        <small class="text-muted">(URLを知る人だけ)</small>
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="radio" name="public_type" v-model="quiz.publicType" value="3"> 非公開
                                         </label>
+                                        <small class="text-muted">(公開されません)</small>
                                     </div>
                                 </div>
                                 <div class="mt-4">
@@ -133,6 +136,17 @@
                 loading:false,
                 saveBtnDisabled: false,
                 responseError: false
+            }
+        },
+        watch: {
+            quiz: {
+                handler() {
+                    this.$nextTick(() => {
+                        let questionNumber = document.getElementsByName('questionNumber')[0];
+                        questionNumber.options[questionNumber.options.length - 1].selected = true;
+                    });
+                },
+                deep: true
             }
         },
         computed: {
@@ -187,6 +201,7 @@
                                 this.quiz.questions[index].toggle = true;
                             }
                         }
+                        // バリデーションチェックに引っかかった項目にスクロール
                         this.$nextTick(() => {
                             let firstError = document.getElementsByName(this.errors.items[0].field);
                             firstError[0].scrollIntoView({behavior: 'smooth', block: 'center'});
@@ -237,4 +252,5 @@
 </script>
 
 <style scoped>
+
 </style>
