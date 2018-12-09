@@ -97,7 +97,11 @@ class QuizController extends Controller
      */
     public function show($id)
     {
-        $this->userCheck($id);
+//        $this->userCheck($id);
+        $quiz = Quiz::whereUser(Auth::id())->where('id', $id)->first();
+        if (!$quiz) {
+            return redirect(route('my_page_index'))->with('msg_error', 'クイズが見つかりませんでした');
+        }
 
         return new QuizResource(Quiz::find($id));
     }
@@ -110,7 +114,11 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        $this->userCheck($id);
+//        $this->userCheck($id);
+        $quiz = Quiz::whereUser(Auth::id())->where('id', $id)->first();
+        if (!$quiz) {
+            return redirect(route('my_page_index'))->with('msg_error', 'クイズが見つかりませんでした');
+        }
 
         return view('my_pages.edit', compact('id'));
     }
@@ -124,8 +132,12 @@ class QuizController extends Controller
      */
     public function update(QuizRequest $request, $id)
     {
-        \Debugbar::log($request->all());
+//        \Debugbar::log($request->all());
 
+        $quiz = Quiz::whereUser(Auth::id())->where('id', $id)->first();
+        if (!$quiz) {
+            return redirect(route('my_page_index'))->with('msg_error', 'クイズが見つかりませんでした');
+        }
         DB::transaction(function () use ($request, $id) {
             // クイズテーブルを更新する
             $quiz = Quiz::find($id);
@@ -145,7 +157,7 @@ class QuizController extends Controller
             }
             // 質問テーブルにデータを登録する
             foreach ($request->questions as $request_question) {
-                \Debugbar::log($request_question);
+//                \Debugbar::log($request_question);
 
                 // 質問テーブル登録
                 $question = new Question();
@@ -187,7 +199,11 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        $this->userCheck($id);
+//        $this->userCheck($id);
+        $quiz = Quiz::whereUser(Auth::id())->where('id', $id)->first();
+        if (!$quiz) {
+            return redirect(route('my_page_index'))->with('msg_error', 'クイズが見つかりませんでした');
+        }
         Quiz::find($id)->delete();
         return redirect(route('my_page_index'))->with('msg_delete', '削除しました');
     }
@@ -197,12 +213,12 @@ class QuizController extends Controller
         $request->session()->flash('msg_save', '保存しました');
     }
 
-    private function userCheck($quiz_id)
-    {
-        $quiz = Quiz::whereUser(Auth::id())->where('id', $quiz_id)->first();
-        if (!$quiz) {
-            return redirect(route('my_page_index'))->with('msg_error', 'クイズが見つかりませんでした');
-        }
-        return;
-    }
+//    private function userCheck($quiz_id)
+//    {
+//        $quiz = Quiz::whereUser(Auth::id())->where('id', $quiz_id)->first();
+//        if (!$quiz) {
+//            return redirect(route('my_page_index'))->with('msg_error', 'クイズが見つかりませんでした');
+//        }
+//        return;
+//    }
 }

@@ -95,6 +95,7 @@
                                         </select>
                                         <span class="mx-1">問</span>
                                         <span>(作成問題数:{{ quiz.questions.length }})</span>
+                                        <small class="text-muted d-block">(作成した問題の中からランダムで問題を出題)</small>
                                     </div>
                                 </div>
                                 <div class="text-danger" v-if="responseError">
