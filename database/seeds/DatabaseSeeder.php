@@ -12,13 +12,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
          $this->call([
-             TestMstPublicTypesTableSeeder::class,
+//             TestMstPublicTypesTableSeeder::class,
              TestMstTagsTableSeeder::class,
-             TestQuizzesTableSeeder::class,
-             TestQuestionsTableSeeder::class,
-             TestItemsTableSeeder::class,
-             TestResultsTableSeeder::class,
-             TestTagsTableSeeder::class
+//             TestQuizzesTableSeeder::class,
+//             TestQuestionsTableSeeder::class,
+//             TestItemsTableSeeder::class,
+//             TestResultsTableSeeder::class,
+//             TestTagsTableSeeder::class
          ]);
     }
 }
