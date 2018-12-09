@@ -39,9 +39,18 @@
                         <div>
                             <a href="{{ route('public_view_item', $quiz->id) }}">{{ $quiz->quiz_title }}</a>
                             <span class="badge badge-pill badge-secondary ml-2">挑戦数：{{ $quiz->challenge_number }}</span>
+                            <small class="text-muted">正解率:
+                                @if($quiz->question_sum === 0)
+                                    --.-
+                                @else
+                                    @php print(number_format(($quiz->correct_sum / $quiz->question_sum) * 100, 1)) @endphp
+                                @endif
+                                ％
+                            </small>
                         </div>
                         <div>
                             <span class="text-secondary sub-title">{{ $quiz->quiz_sub_title }}</span>
+
                         </div>
                     </div>
                 @endforeach

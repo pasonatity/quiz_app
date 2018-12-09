@@ -26,7 +26,9 @@ Route::get('/', 'TopPageController@index')->name('public_view');
 Route::get('/item/{quiz_id}', 'QuizViewController@item')->name('public_view_item');
 
 // クイズ取得
-Route::get('/item/{quiz_id}/content', 'QuizViewController@content');
+Route::get('/item/{quiz_id}/content', 'QuizViewController@content')->name('public_view_content');
+// クイズ結果更新
+Route::post('/item/{quiz_id}/result', 'QuizViewController@result')->name('public_view_result');
 
 //Route::get('/auth', function () {
 //    return view('auth');

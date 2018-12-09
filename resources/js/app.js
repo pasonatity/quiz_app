@@ -35,6 +35,7 @@ const app = new Vue({
     el: '#app'
 });
 
+// TODO:マイページ削除処理時のみに実行されるよう修正が必要
 let btnDelete = document.getElementsByClassName("btn-delete");
 for (let i = 0; i < btnDelete.length; i++) {
     btnDelete[i].addEventListener('click', function(e) {

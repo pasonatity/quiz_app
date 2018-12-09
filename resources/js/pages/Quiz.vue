@@ -21,9 +21,14 @@
                     <div class="alert alert-info col-8 col-md-4">
                         <h5 class="alert-heading"><strong>結果発表</strong></h5>
                         <div>{{ correctNum }}  / {{ panel.data.questions.length }} 問正解！</div>
+                        <a :href="tweetUrl"
+                           class="btn btn-primary"
+                           id="tweet-btn"
+                           onClick="window.open(encodeURI(decodeURI(this.href)),'sharewindow','width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, sizable=1'); return false;"
+                        ><i class="fab fa-twitter"></i> ツイート</a>
                     </div>
                 </div>
-                <a :href="url" class="btn btn-primary">もう一度</a>
+                <a :href="currentUrl" class="btn btn-primary">もう一度</a>
             </div>
         </div>
     </div>
@@ -35,18 +40,19 @@
         components: {
             QuestionPanel
         },
-        props: ['url'],
+        props: ['currentUrl', 'getQuestionUrl', 'postResultUrl', 'quizId'],
         data() {
             return {
                 panelError: false,
                 panel: [],
                 show: 'start',
-                correctNum: 0
+                correctNum: 0,
+                tweetUrl:''
             }
         },
         created() {
             // クイズ取得
-            axios.get(location.href + '/content').then(res => {
+            axios.get(this.getQuestionUrl).then(res => {
                 let resData = res.data;
                 this.panel = resData;
             }).catch(error => {
@@ -59,6 +65,18 @@
             },
             showResult(correctNum) {
                 this.correctNum = correctNum;
+                this.tweetUrl = 'https://twitter.com/share?&text=' +
+                    this.panel.data.quiz_title + '%0a' + this.correctNum + ' / ' + this.panel.data.questions.length  + '問正解！' + '%0a' +
+                    '&hashtags=quiz.make' +
+                    '&url=' + this.currentUrl;
+
+                axios.post(this.postResultUrl, {
+                    id: this.quizId,
+                    questionSum: this.panel.data.questions.length,
+                    correctSum: this.correctNum
+                }).then(res => {
+                }).catch(e => {
+                });
                 this.show = 'resultPanel';
             }
         }

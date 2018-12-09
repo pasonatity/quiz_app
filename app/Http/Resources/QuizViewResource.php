@@ -14,7 +14,7 @@ class QuizViewResource extends JsonResource
 //            'id' => $this->id,
             'quiz_title' => $this->quiz_title,
             'quiz_sub_title' => $this->quiz_sub_title,
-            'questions' => QuestionViewResource::collection($this->question),
+            'questions' => QuestionViewResource::collection($this->question)->random($this->question_number),
 //            'results' => ResultResource::collection($this->result)
         ];
     }

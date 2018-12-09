@@ -17,18 +17,30 @@ class QuizViewController extends Controller
     // クイズ内容
     public function content($quiz_id)
     {
-        $quiz_content = Quiz::where('id', $quiz_id)->first();
-        if($quiz_content) {
-            $this->increaseChallengeNumber($quiz_content);
-        }
+        $quiz_content = Quiz::where('id', $quiz_id)->whereIn('public_type', [1, 2])->first();
+//        if($quiz_content) {
+//            $this->increaseChallengeNumber($quiz_content);
+//        }
         return new QuizViewResource($quiz_content);
     }
 
-    // 挑戦数+1
-    private function increaseChallengeNumber($quiz)
+    // クイズ結果
+    public function result(Request $request)
     {
-        \Debugbar::log('挑戦数＋１');
-        $quiz->challenge_number += 1;
-        $quiz->save();
+        $quiz = Quiz::where('id', $request->id)->first();
+        $quiz->fill([
+            'challenge_number' => $quiz->challenge_number + 1,
+            'question_sum'     => $quiz->question_sum + $request->questionSum,
+            'correct_sum'      => $quiz->correct_sum + $request->correctSum
+        ])->save();
     }
+
+    // 挑戦数+1
+//    private function increaseChallengeNumber($quiz)
+//    {
+//        \Debugbar::log('挑戦数＋１');
+//        $quiz->challenge_number += 1;
+//        $quiz->save();
+//    }
+
 }
