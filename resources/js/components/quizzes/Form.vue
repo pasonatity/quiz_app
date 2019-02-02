@@ -78,7 +78,7 @@
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="radio" name="public_type" v-model="quiz.publicType" value="2"> 限定公開
                                         </label>
-                                        <small class="text-muted">(URLを知る人だけ)</small>
+                                        <small class="text-muted">(URLを知る人だけに公開)</small>
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
